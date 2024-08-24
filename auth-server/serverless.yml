@@ -10,6 +10,12 @@ provider:
   runtime: nodejs18.x
   region: eu-central-1
   timeout: 30
+  package:
+    excludeDevDependencies: true
+    exclude:
+      - .git/**
+      - .vscode/**        
+      - node_modules
   environment:
     CLIENT_ID: ${file(config.json):CLIENT_ID}
     CLIENT_SECRET: ${file(config.json):CLIENT_SECRET}
