@@ -6,7 +6,6 @@ service: auth-server
 package:
   patterns:
     - '!node_modules/**'
-    - 'node_modules/node-fetch/**'
 frameworkVersion: "3"
 
 provider:
