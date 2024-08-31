@@ -4,7 +4,6 @@ service: auth-server
 #app: your-app-name
 #org: your-org-name
 package:
-  patterns:
   exclude:
     - 'node_modules/**'
 frameworkVersion: "3"
