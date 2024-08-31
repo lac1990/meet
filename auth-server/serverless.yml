@@ -4,8 +4,8 @@ service: auth-server
 #app: your-app-name
 #org: your-org-name
 package:
- patterns:
-    - 'node_modules/**'
+  patterns:
+    - '!node_modules/**'
 frameworkVersion: "3"
 provider:
   name: aws
