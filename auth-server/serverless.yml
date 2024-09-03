@@ -3,9 +3,7 @@ service: auth-server
 # app and org for use with dashboard.serverless.com
 #app: your-app-name
 #org: your-org-name
-package:
-  patterns:
-    - '!node_modules/**'
+
 frameworkVersion: "3"
 provider:
   name: aws
