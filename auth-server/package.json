@@ -5,7 +5,6 @@
   "main": "handler.js",
   "scripts": {
       "build": "rm -rf dist && esbuild ./src/* --entry-names=[dir]/[name]/index --bundle --minify --sourcemap --platform=node --target=node16.14 --outdir=dist",
-   },
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
