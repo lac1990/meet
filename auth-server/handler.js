@@ -5,16 +5,8 @@ const calendar = google.calendar("v3");
 const SCOPES = ["https://www.googleapis.com/auth/calendar.events.public.readonly"];
 const { CLIENT_SECRET, CLIENT_ID, CALENDAR_ID } = process.env;
 const redirect_uris = ["https://lac1990.github.io/meet/"];
-const DynamoDB = require("aws-sdk/clients/dynamodb")
-const nodeJsFunction = new lambdaNodejs.NodejsFunction(
-  this,
-  "NodeJsFunction",
-  {
-    runtime: lambda.Runtime.NODEJS_16_X,
-    handler: "main",
-    entry: "../path/to/your/entry.js_or_ts",
-  }
-);
+
+
 const oAuth2Client = new google.auth.OAuth2(
   CLIENT_ID,
   CLIENT_SECRET,

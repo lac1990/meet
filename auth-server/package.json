@@ -10,12 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.1679.0",
-    "gcp-metadata": "^6.1.0",
-    "googleapis": "^110.0.0",
-    "install": "^0.13.0",
-    "node": "^22.6.0",
-    "serverless": "^4.1.23"
+    "googleapis": "^110.0.0"
   },
   "devDependencies": {
     "esbuild": "^0.23.1"
