@@ -34,9 +34,8 @@ export const getAccessToken = async () => {
       return code && getToken(code);
     }
     return accessToken;
-    return accessToken;
-};
 
+};
 
 const checkToken = async (accessToken) => {
   const response = await fetch(
