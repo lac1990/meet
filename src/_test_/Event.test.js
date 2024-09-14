@@ -2,6 +2,8 @@ import Event from "../components/Event";
 import userEvent from "@testing-library/user-event";
 import { render } from '@testing-library/react';
 import mockData from "../mock-data";
+import { getEvents } from "../api";
+
 
 const event = mockData[0];
 
@@ -15,7 +17,13 @@ describe('<Event /> component', () => {
         const eventTitle = EventComponent.queryByText(event.summary);
         expect(eventTitle).toBeInTheDocument();
     });
-
+   
+    test('render event created time', async () => { 
+        const allEvents = await getEvents();
+        EventComponent.rerender(<Event event={allEvents[0]} />);
+        expect(EventComponent.queryByText(allEvents[0].created)).toBeInTheDocument();  
+      });
+      
     test('renders event start time', () => {
         const eventTime = EventComponent.queryByText(event.created);
         expect(eventTime).toBeInTheDocument();
