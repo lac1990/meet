@@ -1,6 +1,5 @@
-// src/api.js
-
-import mockData from './mock-data';
+/* eslint-disable no-useless-concat */
+import mockData from "./mock-data";
 
 /**
  *
@@ -14,28 +13,29 @@ export const extractLocations = (events) => {
   const extractedLocations = events.map((event) => event.location);
   const locations = [...new Set(extractedLocations)];
   return locations;
-};
+}; 
+
 export const getAccessToken = async () => {             
-    const accessToken = localStorage.getItem("access_token");
-    const tokenCheck = accessToken && (await checkToken(accessToken));
+  const accessToken = localStorage.getItem("access_token");
+  const tokenCheck = accessToken && (await checkToken(accessToken));
 
-    if (!accessToken || tokenCheck.error) {
-      await localStorage.removeItem("access_token");
-      const searchParams = new URLSearchParams(window.location.search);
-      const code = await searchParams.get("code");
-      if (!code) {
-        const response = await fetch(
-          "https://8g4s7s9756.execute-api.eu-central-1.amazonaws.com/dev/api/get-auth-url"
-        );
-        const result = await response.json();
-        const { authUrl } = result;
-        return (window.location.href = authUrl);
-      }
-      return code && getToken(code);
+  if (!accessToken || tokenCheck.error) {
+    await localStorage.removeItem("access_token");
+    const searchParams = new URLSearchParams(window.location.search);
+    const code = await searchParams.get("code");
+    if (!code) {
+      const response = await fetch(
+        "https://8g4s7s9756.execute-api.eu-central-1.amazonaws.com/dev/api/get-auth-url"
+      );
+      const result = await response.json();
+      const { authUrl } = result;
+      return (window.location.href = authUrl);
     }
-    return accessToken;
-
+    return code && getToken(code);
+  }
+  return accessToken;
 };
+
 
 const checkToken = async (accessToken) => {
   const response = await fetch(
@@ -50,7 +50,7 @@ const getToken = async (code) => {
     const encodeCode = encodeURIComponent(code);
  
     // eslint-disable-next-line no-useless-concat
-    const response = await fetch("https://ms8edqfzoi.execute-api.eu-central-1.amazonaws.com/dev/api/token/" + encodeCode);
+    const response = await fetch("https://8g4s7s9756.execute-api.eu-central-1.amazonaws.com/dev/api/token/" + encodeCode);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`)
     }
