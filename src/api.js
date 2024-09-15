@@ -87,7 +87,7 @@ export const getEvents = async () => {
   if (token) {
     removeQuery();
     // eslint-disable-next-line no-useless-concat
-    const url = "https://8g4s7s9756.execute-api.eu-central-1.amazonaws.com/dev/api/get-events/" + token;
+    const url = "https://8g4s7s9756.execute-api.eu-central-1.amazonaws.com/dev/api/get-events/";
     const response = await fetch(url)
     const result = await response.json();
     if (result) {
