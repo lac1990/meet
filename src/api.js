@@ -68,7 +68,7 @@ export const getEvents = async () => {
   }
 
   const token = await getAccessToken();
-
+  
   const removeQuery = () => {
     let newurl;
     if (window.history.pushState && window.location.pathname) {

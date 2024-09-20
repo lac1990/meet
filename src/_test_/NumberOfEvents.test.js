@@ -24,12 +24,12 @@ describe('<NumberOfEvents /> component', () => {
   });  
 
   test('change number of events when a user types in the textbox', async () => { 
-    const numverOfEvents = NumberOfEventsComponent.getByRole('textbox');
+    const numberOfEvents = NumberOfEventsComponent.getByRole('textbox');
     const user = userEvent.setup(); 
-    await user.type(numverOfEvents, '{backspace}{backspace}10');   
+    await user.type(numberOfEvents, '{backspace}{backspace}10');   
     const allEvents = await getEvents(); 
     NumberOfEventsComponent.rerender(<NumberOfEvents setCurrentNOE={allEvents} setErrorAlert={() => {}} />);   
-    expect(numverOfEvents).toHaveValue('10'); 
+    expect(numberOfEvents).toHaveValue('10'); 
   }); 
 });  
  
