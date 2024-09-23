@@ -8,27 +8,27 @@ const NumberOfEvents = ({ setCurrentNOE, setErrorAlert }) => {
     let value = e.target.value
     setNumber(value)
     let errorText;
-    if(value === isNaN || value.length <= 0) { 
+    if (value === isNaN || value.length <= 0) {
       errorText = 'Please enter a valid number'
     } else {
       errorText = ''
     }
     setCurrentNOE(value)
-    setErrorAlert(errorText) 
+    setErrorAlert(errorText)
   }
- 
+
   return (
-    <div id="numberOfEvents">
+    <div id="numberOfevents">
       <label htmlFor="number" id="number">
         Number of Events:
-      <input
-        type="text"
-        className="number"
-        value={number}
-        onChange={handleInputChanged}
+        <input
+          type="text"
+          className="number"
+          value={number}
+          onChange={handleInputChanged}
         />
-        </label>
-    </div> 
+      </label>
+    </div>
   )
 }
 

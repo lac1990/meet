@@ -18,11 +18,11 @@ const Event = ({ event }) => {
       ) : null}
       <button className="show-details-btn"
         onClick={() => setShowDetails(!showDetails)}
-        >
-          {showDetails ? "Hide Details" : "Show Details"}
-        </button>
+      >
+        {showDetails ? "Hide Details" : "Show Details"}
+      </button>
     </li>
   );
 }
-  
+
 export default Event;
