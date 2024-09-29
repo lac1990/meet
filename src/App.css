@@ -1,3 +1,12 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:500);
+
+:root {
+  --primary-background-color: #f5feff;
+  --text-color: #045c5f;
+  --primary-color: #068488;
+  --secondary-color: #00c6cf;
+  --light-cyan: #e7fdfe;
+}
 .App {
   text-align: center;
   padding: 2% 5%;
