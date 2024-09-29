@@ -1,10 +1,14 @@
 import { useState, useEffect } from 'react';
-import { PieChart, Pie, ResponsiveContainer } from 'recharts';
+import {
+  ResponsiveContainer,
+  PieChart,
+  Pie,
+} from 'recharts';
 
-const EventGenresChart = ({ events }) => {
+const EventGenreChart = ({ events }) => {
   const [data, setData] = useState([]);
-  const genres = ['React', 'JavaScript', 'Node', 'jQuery', 'Angular'];
-  const colors = ['#DDA280', '#3A837D', '#DE5969', '#D6B9A4', '#95C2BD'];
+  const genres = ['React', 'JavaScript', 'Node', 'jQuery', 'AngularJS'];
+  const colors = ['#DD0000', '#00DD00', '#0000DD', '#DDDD00', '#DD00DD'];
 
   useEffect(() => {
     setData(getData());
@@ -12,48 +16,53 @@ const EventGenresChart = ({ events }) => {
 
   const getData = () => {
     const data = genres.map((genre) => {
-      const filteredEvents = events.filter((event) => event.summary.includes(genre));
-      return {
-        name: genre,
-        value: filteredEvents.length
-      };
+      const filteredEvents = events.filter((event) =>
+        event.summary.includes(genre)
+      ).length;
+      return { name: genre, value: filteredEvents };
     });
     return data;
   };
 
-  const renderCustomizedLabel = ({ cx, cy, midAngle, outerRadius, innerRadius, percent, index }) => {
+  const renderCustomizedLabel = ({
+    cx,
+    cy,
+    midAngle,
+    outerRadius,
+    percent,
+    index,
+  }) => {
     const RADIAN = Math.PI / 180;
-    const radius = innerRadius + (outerRadius - innerRadius) * 0.7;
-    const x = cx + radius * Math.cos(-midAngle * RADIAN);
-    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+    const radius = outerRadius;
+    const x = cx + radius * Math.cos(-midAngle * RADIAN) * 1.07;
+    const y = cy + radius * Math.sin(-midAngle * RADIAN) * 1.07;
     return percent ? (
       <text
         x={x}
         y={y}
-        fill="#fff"
+        fill="#068488"
         textAnchor={x > cx ? 'start' : 'end'}
         dominantBaseline="central"
       >
-        {`${(percent * 100).toFixed(0)}%`}
+        {`${genres[index]} ${(percent * 100).toFixed(0)}%`}
       </text>
     ) : null;
   };
+
   return (
     <ResponsiveContainer width="99%" height={400}>
       <PieChart>
         <Pie
           data={data}
           dataKey="value"
-          fill="#8884d8"
+          fill="#068488"
           labelLine={false}
           label={renderCustomizedLabel}
-          outerRadius={150}           
+          outerRadius={150}
         />
       </PieChart>
     </ResponsiveContainer>
   );
- 
+};
 
-}
-
-export default EventGenresChart;
+export default EventGenreChart;
