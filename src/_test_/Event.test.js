@@ -10,20 +10,20 @@ const event = mockData[0];
 describe('<Event /> component', () => {
     let EventComponent;
     beforeEach(() => {
-        EventComponent = render(<Event event={event}/>);
+        EventComponent = render(<Event event={event} />);
     });
-    
+
     test('renders event title', () => {
         const eventTitle = EventComponent.queryByText(event.summary);
         expect(eventTitle).toBeInTheDocument();
     });
-   
-    test('render event created time', async () => { 
+
+    test('render event created time', async () => {
         const allEvents = await getEvents();
         EventComponent.rerender(<Event event={allEvents[0]} />);
-        expect(EventComponent.queryByText(allEvents[0].created)).toBeInTheDocument();  
-      });
-      
+        expect(EventComponent.queryByText(allEvents[0].created)).toBeInTheDocument();
+    });
+
     test('renders event start time', () => {
         const eventTime = EventComponent.queryByText(event.created);
         expect(eventTime).toBeInTheDocument();
@@ -33,13 +33,13 @@ describe('<Event /> component', () => {
         const eventLocation = EventComponent.queryByText(event.location);
         expect(eventLocation).toBeInTheDocument();
     });
-    
+
     // Show Details button
     test('render event details button', () => {
         const detailButton = EventComponent.queryByText('Show Details');
         expect(detailButton).toBeInTheDocument();
     });
-    
+
     // Scenario 1 
     test("event's details are hidden by default", () => {
         const eventDetails = EventComponent.container.querySelector('.details');
@@ -49,7 +49,7 @@ describe('<Event /> component', () => {
     // Scenario 2
     test('show details after user clicks on button "Show Details"', async () => {
         const user = userEvent.setup();
-        
+
         const showDetailButton = EventComponent.queryByText('Show Details');
         await user.click(showDetailButton);
 
@@ -61,10 +61,10 @@ describe('<Event /> component', () => {
     // Scenario 3
     test('hide details after use clicks on button "Hide details', async () => {
         const user = userEvent.setup();
-        
+
         const showDetailButton = EventComponent.queryByText('Show Details');
         await user.click(showDetailButton);
-        
+
         const hideDetailButton = EventComponent.queryByText('Hide Details');
         await user.click(hideDetailButton);
 

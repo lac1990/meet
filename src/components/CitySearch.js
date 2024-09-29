@@ -10,7 +10,7 @@ const CitySearch = ({ allLocations, setCurrentCity }) => {
     setQuery(value);
     setShowSuggestions(false);
     setCurrentCity(value);
-  }; 
+  };
 
   const handleInputChanged = (event) => {
     const value = event.target.value;
@@ -25,10 +25,10 @@ const CitySearch = ({ allLocations, setCurrentCity }) => {
   useEffect(() => {
     setSuggestions(allLocations);
   }, [`${allLocations}`]);
- 
+
   return (
     <div id="city-search">
-      <input 
+      <input
         type="text"
         className="city"
         value={query}

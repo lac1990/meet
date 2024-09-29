@@ -15,7 +15,7 @@ const NumberOfEvents = ({ setCurrentNOE, setErrorAlert }) => {
     }
     setCurrentNOE(value)
     setErrorAlert(errorText)
-  }
+  };
 
   return (
     <div id="numberOfevents">
@@ -30,11 +30,11 @@ const NumberOfEvents = ({ setCurrentNOE, setErrorAlert }) => {
       </label>
     </div>
   )
-}
+};
 
 export default NumberOfEvents
 
 NumberOfEvents.propTypes = {
   setCurrentNOE: PropTypes.func.isRequired,
   setErrorAlert: PropTypes.func.isRequired
-}
+};

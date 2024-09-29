@@ -18,7 +18,7 @@ const App = () => {
   const [infoAlert, setInfoAlert] = useState("");
   const [errorAlert, setErrorAlert] = useState("");
   const [warningAlert, setWarningAlert] = useState("");
-  
+
   useEffect(() => {
     if (!navigator.onLine) {
       // set the warning alert message to an empty string ""
@@ -28,7 +28,7 @@ const App = () => {
       setWarningAlert('')
     }
     fetchData();
-  }, [currentCity]); 
+  }, [currentCity]);
 
   const fetchData = async () => {
     const allEvents = await getEvents();
@@ -38,7 +38,7 @@ const App = () => {
     setEvents(currentEvents);
     setAllLocations(extractLocations(allEvents))
   }
-  
+
   return (
     <div className="App">
       <div className="alerts-container">
@@ -52,8 +52,8 @@ const App = () => {
         setInfoAlert={setInfoAlert} />
       <NumberOfEvents setCurrentNOE={setCurrentNOE} setErrorAlert={setErrorAlert} />
       <div className='chart-container'>
-      <EventGenresChart events={events} />
-      <CityEventsChart allLocations={allLocations} events={events} />
+        <EventGenresChart events={events} />
+        <CityEventsChart allLocations={allLocations} events={events} />
       </div>
       <EventList events={events} />
     </div>
