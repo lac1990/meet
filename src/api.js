@@ -1,4 +1,4 @@
-/* eslint-disable no-useless-concat */
+
 import mockData from "./mock-data";
 
 /**
@@ -9,14 +9,15 @@ import mockData from "./mock-data";
  * It will also remove all duplicates by creating another new array using the spread operator and spreading a Set.
  * The Set will remove all duplicates from the array.
  */
-export const extractLocations = (events) => {
-  const extractedLocations = events.map((event) => event.location);
-  const locations = [...new Set(extractedLocations)];
-  return locations;
-};
+// export const extractLocations = (events) => {
+//   const extractedLocations = events[0].items.map((event) => event.location);
+//   const locations = [...new Set(extractedLocations)];
+//   return locations;
+// };
 
 export const getAccessToken = async () => {
   const accessToken = localStorage.getItem("access_token");
+
   const tokenCheck = accessToken && (await checkToken(accessToken));
 
   if (!accessToken || tokenCheck.error) {
@@ -36,6 +37,11 @@ export const getAccessToken = async () => {
   return accessToken;
 };
 
+export const extractLocations = (events) => {
+  const extractedLocations = events.map((event) => event.location);
+  const locations = [...new Set(extractedLocations)];
+  return locations;
+};
 
 const checkToken = async (accessToken) => {
   const response = await fetch(
@@ -45,62 +51,61 @@ const checkToken = async (accessToken) => {
   return result;
 };
 
-const getToken = async (code) => {
-  try {
-    const encodeCode = encodeURIComponent(code);
-
-    // eslint-disable-next-line no-useless-concat
-    const response = await fetch("https://8g4s7s9756.execute-api.eu-central-1.amazonaws.com/dev/api/token/" + encodeCode);
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`)
-    }
-    const { access_token } = await response.json();
-    access_token && localStorage.setItem("access_token", access_token);
-    return access_token;
-  } catch (error) {
-    return error;
+const removeQuery = () => {
+  let newurl;
+  if (window.history.pushState && window.location.pathname) {
+    newurl =
+      window.location.protocol +
+      "//" +
+      window.location.host +
+      window.location.pathname;
+    window.history.pushState("", "", newurl);
+  } else {
+    newurl = window.location.protocol + "//" + window.location.host;
+    window.history.pushState("", "", newurl);
   }
-}
+};
+
+const getToken = async (code) => {
+  const encodeCode = encodeURIComponent(code);
+  const response = await fetch(
+    "https://8g4s7s9756.execute-api.eu-central-1.amazonaws.com/dev/api/token" +
+      "/" +
+      encodeCode
+  );
+  const { access_token } = await response.json();
+  access_token && localStorage.setItem("access_token", access_token);
+
+  return access_token;
+};
+
+/**
+ *
+ * This function will fetch the list of all events
+ */
 export const getEvents = async () => {
-  NProgress.start();
   if (window.location.href.startsWith("http://localhost")) {
-    NProgress.done();
     return mockData;
   }
 
   if (!navigator.onLine) {
     const events = localStorage.getItem("lastEvents");
-    NProgress.done();
-    return events?JSON.parse(events):[];
+    return events ? JSON.parse(events) : [];
   }
 
   const token = await getAccessToken();
 
-  const removeQuery = () => {
-    let newurl;
-    if (window.history.pushState && window.location.pathname) {
-      newurl =
-        window.location.protocol +
-        "//" +
-        window.location.host +
-        window.location.pathname;
-      window.history.pushState("", "", newurl);
-    } else {
-      newurl = window.location.protocol + "//" + window.location.host;
-      window.history.pushState("", "", newurl);
-    }
-  };
-
   if (token) {
     removeQuery();
-    // eslint-disable-next-line no-useless-concat
-    const url = "https://8g4s7s9756.execute-api.eu-central-1.amazonaws.com/dev/api/get-events/" + token;
-    const response = await fetch(url)
+    const url =
+      "https://8g4s7s9756.execute-api.eu-central-1.amazonaws.com/dev/api/get-events" +
+      "/" +
+      token;
+    const response = await fetch(url);
     const result = await response.json();
     if (result) {
+      localStorage.setItem("lastEvents", JSON.stringify(result.events));
       return result.events;
-    } else {
-      return console.log("No events found");
-    }
+    } else return null;
   }
-}; 
+};

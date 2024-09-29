@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const CitySearch = ({ allLocations, setCurrentCity, setInfoAlert }) => {
+const CitySearch = ({ allLocations, setCurrentCity }) => {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [query, setQuery] = useState('');
   const [suggestions, setSuggestions] = useState([]);
@@ -10,9 +10,7 @@ const CitySearch = ({ allLocations, setCurrentCity, setInfoAlert }) => {
     setQuery(value);
     setShowSuggestions(false);
     setCurrentCity(value);
-    setInfoAlert("")
-  };
-
+  }; 
 
   const handleInputChanged = (event) => {
     const value = event.target.value;
@@ -22,23 +20,15 @@ const CitySearch = ({ allLocations, setCurrentCity, setInfoAlert }) => {
 
     setQuery(value);
     setSuggestions(filteredLocations);
-
-    let infoText;
-    if (filteredLocations.length === 0) {
-      infoText = "We can not find the city you are looking for. Please try another city"
-    } else {
-      infoText = ""
-    }
-    setInfoAlert(infoText);
   };
 
   useEffect(() => {
     setSuggestions(allLocations);
   }, [`${allLocations}`]);
-
+ 
   return (
     <div id="city-search">
-      <input
+      <input 
         type="text"
         className="city"
         value={query}
